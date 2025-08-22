@@ -80,9 +80,10 @@
             pname
           ];
         };
+        noworkflow-bin = python.pkgs.toPythonApplication noworkflow;
       in rec {
         packages = rec {
-            inherit noworkflow pyposast;
+            inherit noworkflow noworkflow-bin pyposast;
         };
       }
     );
