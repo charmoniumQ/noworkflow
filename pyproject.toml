@@ -29,12 +29,12 @@ dependencies = [
     "pyposast",
     "apted",
     "future",
-    "SQLAlchemy>=1.4.29,<=1.4.47",
+    "SQLAlchemy>=1.4.29,<=3",
     "parameterized",
     "requests",
     "ipykernel",
-    "zipp==3.15",
-    "importlib-metadata==6.4.1",
+    "zipp>=3.15,<4",
+    "importlib-metadata>=6.4.1,<7",
     "typing-extensions>=4.5.0,<5"
 ]
 
