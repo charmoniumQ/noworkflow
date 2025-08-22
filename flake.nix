@@ -35,6 +35,24 @@
           ];
         };
 
+        sqlalchemy_1 = python.pkgs.sqlalchemy.overrideAttrs rec {
+          version = "1.4.54";
+          src = pkgs.fetchFromGitHub {
+            owner = "sqlalchemy";
+            repo = "sqlalchemy";
+            tag = "rel_${pkgs.lib.replaceStrings [ "." ] [ "_" ] version}";
+            hash = "sha256-6qAjyqMVrugABHssAQuql3z1YHTAOSm5hARJuJXJJvo=";
+          };
+          disabledTestPaths = [
+            # typing correctness, not interesting
+            #"test/ext/mypy" (not present in 1.x)
+            #"test/typing"
+
+            # slow and high memory usage, not interesting
+            "test/aaa_profiling"
+          ];
+        };
+
         noworkflow = python.pkgs.buildPythonPackage rec {
           pname = "noworkflow";
           version = "dev";
@@ -42,18 +60,24 @@
           pyproject = true;
           dependencies = [
             pyposast
+            sqlalchemy_1
             python.pkgs.apted
             python.pkgs.future
-            python.pkgs.sqlalchemy
             python.pkgs.parameterized
             python.pkgs.requests
             python.pkgs.ipykernel
             python.pkgs.zipp
             python.pkgs.importlib-metadata
             python.pkgs.typing-extensions
+            python.pkgs.setuptools
+            python.pkgs.pandas
+            python.pkgs.nbformat
           ];
           build-system = [
             python.pkgs.setuptools
+          ];
+          pythonImportsCheck = [
+            pname
           ];
         };
       in rec {

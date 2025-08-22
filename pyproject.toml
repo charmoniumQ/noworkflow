@@ -29,7 +29,7 @@ dependencies = [
     "pyposast",
     "apted",
     "future",
-    "SQLAlchemy>=1.4.29,<=3",
+    "SQLAlchemy>=1.4.29,<2.0",
     "parameterized",
     "requests",
     "ipykernel",
