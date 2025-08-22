@@ -80,7 +80,10 @@
             pname
           ];
         };
-        noworkflow-bin = python.pkgs.toPythonApplication noworkflow;
+        noworkflow-bin = pkgs.runCommand "noworkflow-bin" { } ''
+          mkdir --parents $out/bin
+          ln --symbolic ${noworkflow}/bin/now $out/bin/now
+        '';
       in rec {
         packages = rec {
             inherit noworkflow noworkflow-bin pyposast;
